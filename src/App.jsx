@@ -307,4 +307,139 @@ function App() {
                 width: `${state.progress}%`,
                 borderRadius: '8px',
                 boxShadow: '0 0 24px rgba(16,185,129,1)',
-                animation: 'progressFlow 1.4s linear infinite
+                animation: 'progressFlow 1.4s linear infinite'
+              }} />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* STATUS */}
+      <div style={{
+        width: '100%',
+        maxWidth: 'clamp(360px, 78vw, 520px)',
+        textAlign: 'center',
+        fontSize: 'clamp(1.3rem, 4vw, 1.8rem)',
+        padding: '28px',
+        background: 'rgba(0,0,0,0.45)',
+        borderRadius: '36px',
+        backdropFilter: 'blur(32px)',
+        fontWeight: 800,
+        boxShadow: '0 24px 48px rgba(0,0,0,0.35)',
+        border: '2px solid rgba(16,185,129,0.4)'
+      }}>
+        {state.error && <span>{state.error}</span>}
+        {state.analyzing && `🔍 VERDEX IA ${Math.round(state.progress)}%`}
+        {state.result && (
+          <span style={{color:'#10b981'}}>
+            ✅ {state.result.name} <span style={{color:'#f59e0b'}}>+{state.result.xp} XP</span>
+          </span>
+        )}
+        {state.cameraActive && (
+          <span style={{color:'#10b981'}}>
+            📷 Câmera ativa - Toque para analisar
+          </span>
+        )}
+        {(!state.analyzing && !state.cameraActive && !state.result && !state.error) && (
+          <span>🌱 Scanner IA Premium ativo</span>
+        )}
+      </div>
+
+      {/* BUTTONS */}
+      {!state.cameraActive && !state.analyzing && !state.result && (
+        <button onClick={startCamera} style={{
+          width: '100%',
+          maxWidth: 'clamp(400px, 88vw, 560px)',
+          height: 'clamp(120px, 22vw, 155px)',
+          border: 'none',
+          borderRadius: '54px',
+          fontSize: 'clamp(1.9rem, 6vw, 3.1rem)',
+          fontWeight: 900,
+          color: 'white',
+          cursor: 'pointer',
+          background: 'linear-gradient(145deg, #10b981, #059669, #047857)',
+          boxShadow: '0 40px 80px rgba(16,185,129,0.6)',
+          transition: 'all 0.4s cubic-bezier(0.23,1,0.32,1)'
+        }}>
+          📷 Abrir Câmera
+        </button>
+      )}
+
+      {state.cameraActive && (
+        <button onClick={capturePhoto} style={{
+          width: '100%',
+          maxWidth: 'clamp(400px, 88vw, 560px)',
+          height: 'clamp(120px, 22vw, 155px)',
+          border: 'none',
+          borderRadius: '54px',
+          fontSize: 'clamp(1.9rem, 6vw, 3.1rem)',
+          fontWeight: 900,
+          color: 'white',
+          cursor: 'pointer',
+          background: 'linear-gradient(145deg, #f59e0b, #d97706, #b45309)',
+          boxShadow: '0 40px 80px rgba(245,158,11,0.6)',
+          transition: 'all 0.4s cubic-bezier(0.23,1,0.32,1)'
+        }}>
+          🌱 Identificar Planta
+        </button>
+      )}
+
+      {state.result && (
+        <div style={{
+          width: '100%',
+          maxWidth: 'clamp(400px, 88vw, 660px)',
+          textAlign: 'center',
+          background: 'rgba(255,255,255,0.18)',
+          backdropFilter: 'blur(50px)',
+          border: '3px solid rgba(255,255,255,0.35)',
+          borderRadius: '44px',
+          padding: 'clamp(40px, 9vw, 60px)',
+          boxShadow: '0 32px 64px rgba(0,0,0,0.3)'
+        }}>
+          <h2 style={{
+            color: '#10b981',
+            fontSize: 'clamp(2.4rem,6vw,3.5rem)',
+            fontWeight: 900,
+            marginBottom: '28px'
+          }}>
+            🎉 {state.result.name} IDENTIFICADA!
+          </h2>
+          <div style={{fontSize:'1.5rem', opacity:0.95, marginBottom:'36px'}}>
+            {state.result.common || 'Planta saudável'}
+          </div>
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'36px', marginBottom:'32px'}}>
+            <div style={{textAlign:'center'}}>
+              <div style={{opacity:0.95, marginBottom:'20px', fontSize:'1.3rem'}}>❤️ Saúde</div>
+              <div style={{color:'#10b981', fontSize:'3.5rem', fontWeight:900}}>
+                {state.result.confidence}%
+              </div>
+            </div>
+            <div style={{textAlign:'center'}}>
+              <div style={{opacity:0.95, marginBottom:'20px', fontSize:'1.3rem'}}>⭐ XP Ganho</div>
+              <div style={{color:'#f59e0b', fontSize:'3.5rem', fontWeight:900}}>
+                +{state.result.xp}
+              </div>
+            </div>
+          </div>
+          <button onClick={resetScan} style={{
+            width: '100%',
+            height: '60px',
+            marginTop: '36px',
+            border: 'none',
+            borderRadius: '36px',
+            fontSize: '1.4rem',
+            fontWeight: 900,
+            color: 'white',
+            cursor: 'pointer',
+            background: 'linear-gradient(145deg, #10b981, #059669)',
+            boxShadow: '0 20px 40px rgba(16,185,129,0.4)'
+          }}>
+            🔄 Novo Scan
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;	
