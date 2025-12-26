@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- =========================
+         METAS BÁSICAS
+    ========================== -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Viewport CORRIGIDO (agora 100%) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- =========================
+         TÍTULO & SEO
+    ========================== -->
+    <title>VERDEX • Jardinagem Inteligente</title>
+
+    <meta
+      name="description"
+      content="VERDEX é um aplicativo inteligente de jardinagem e paisagismo. Identifique plantas, gere laudos verdes, cuide de jardins e condomínios com eficiência profissional."
+    />
+
+    <meta name="keywords" content="jardinagem, paisagismo, app de plantas, PWA, laudo verde, condomínio, plantas, jardinagem inteligente" />
+    <meta name="author" content="VERDEX" />
+
+    <!-- =========================
+         ÍCONES
+    ========================== -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+    <!-- =========================
+         PWA
+    ========================== -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f3d2e" />
+    <meta name="background-color" content="#0f3d2e" />
+
+    <!-- =========================
+         iOS / APP LIKE
+    ========================== -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="VERDEX" />
+
+    <!-- =========================
+         ANDROID / CHROME
+    ========================== -->
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- =========================
+         PERFORMANCE
+    ========================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- =========================
+         FALLBACK SEM JS
+    ========================== -->
+    <noscript>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #0f3d2e;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          text-align: center;
+        }
+      </style>
+      <div>
+        <h1>VERDEX</h1>
+        <p>Ative o JavaScript para usar o aplicativo.</p>
+      </div>
+    </noscript>
+  </head>
+
+  <body>
+    <!-- ROOT DO REACT -->
+    <div id="root"></div>
+
+    <!-- =========================
+         APP ENTRY
+    ========================== -->
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- =========================
+         SERVICE WORKER
+    ========================== -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {
+              console.log('✅ Service Worker registrado:', registration.scope);
+            })
+            .catch((error) => {
+              console.error('❌ Erro ao registrar Service Worker:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
